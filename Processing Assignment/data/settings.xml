@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spaceInvaders>
+  <key id="left">1</key>
+  <key id="right">4</key>
+  <key id="shoot">0</key>
+  <volume id="music">0.993994</volume>
+  <volume id="sounds">0.993994</volume>
+</spaceInvaders>
