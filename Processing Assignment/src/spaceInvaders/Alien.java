@@ -1,25 +1,18 @@
 package spaceInvaders;
 import processing.core.*;
 import java.util.*;
-public class Alien
+public class Alien extends Entity
 {
 	// TYPE:	Game Entity
 	// DESC:	Can be shot by missiles. If they have no aliens directly below them, they will drop bombs at the player.
-	Random random = new Random();
-	PApplet parent;
-	Game game;
 	PImage texture;
-	float x, y;
 	int type, position;
 	static float speed = 1f;
 	public Alien(PApplet parent, Game game, int type, int position, float y)
 	{
-		this.parent = parent;
-		this.game = game;
+		super(parent, game, game.alienX + (position * 30), y);
 		this.type = type;
 		this.position = position;
-		x = game.alienX + (position * 30);
-		this.y = y;
 		switch(type)
 		{
 			case 0:
@@ -33,16 +26,17 @@ public class Alien
 				break;
 		}
 	}
+	@Override
 	public void update()
 	{
 		move();
 		render();
-		if(isBottom() && random.nextInt(1000) == 1 && game.bomb == null)
+		if(isBottom() && Game.random.nextInt(1000) == 1 && game.bomb == null)
 		{
 			dropBomb();
 		}
 	}
-	private void move()
+	protected void move()
 	{
 		if(x + 12 >= parent.width || x - 12 <= 0 && isBottom())
 		{

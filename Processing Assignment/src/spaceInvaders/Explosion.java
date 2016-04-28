@@ -1,31 +1,20 @@
 package spaceInvaders;
 import processing.core.*;
-public class Explosion
+public class Explosion extends Entity
 {
 	// TYPE:	Game Element	
 	// DESC:	Animation for when an alien is shot.
-	PApplet parent;
-	Game game;
 	PImage frame1, frame2;
 	int position, creationFrame;
-	float x, y;
 	public Explosion(PApplet parent, Game game, int position, float y)
 	{
-		this.parent = parent;
-		this.game = game;
+		super(parent, game, game.alienX + (position * 30), y);
 		this.position = position;
-		x = game.alienX + (position * 30);
-		this.y = y;
 		frame1 = Game.explosion1I;
 		frame2 = Game.explosion2I;
 		creationFrame = Game.frameCount;
 	}
-	public void update()
-	{
-		move();
-		render();
-	}
-	private void move()
+	protected void move()
 	{
 		x = game.alienX + (position * 30);
 	}

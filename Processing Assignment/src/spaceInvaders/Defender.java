@@ -1,24 +1,15 @@
 package spaceInvaders;
 import processing.core.*;
-public class Defender
+public class Defender extends Entity
 {
 	// TYPE:	Game Entity
 	// DESC:	This is what the player controls. It can move left and right and also shoot missiles.
-	PApplet parent;
-	int x, y;
 	int speed = 8;
-	public Defender(PApplet parent)
+	public Defender(PApplet parent, Game game)
 	{
-		this.parent = parent;
-		x = parent.width / 2;
-		y = parent.height - 40;
+		super(parent, game, parent.width / 2, parent.height - 40);
 	}
-	public void update()
-	{
-		move();
-		render();
-	}
-	private void move()
+	protected void move()
 	{
 		if(Game.keys[Game.leftKey] && x - speed >= 0)
 		{

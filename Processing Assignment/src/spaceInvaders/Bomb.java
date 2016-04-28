@@ -1,28 +1,17 @@
 package spaceInvaders;
 import java.util.*;
 import processing.core.*;
-public class Bomb
+public class Bomb extends Entity
 {
 	// TYPE:	Game Entity
 	// DESC:	These are dropped from the aliens. If they hit a wall, the wall is damaged and the bomb is destroyed. If they hit a player then
 	//			the player loses a life and the game resumes.
-	PApplet parent;
-	Game game;
-	float x, y;
 	static float speed = 8f;
 	public Bomb(PApplet parent, Game game, float x, float y)
 	{
-		this.parent = parent;
-		this.game = game;
-		this.x = x;
-		this.y = y;
+		super(parent, game, x, y);
 	}
-	public void update()
-	{
-		move();
-		render();
-	}
-	private void move()
+	protected void move()
 	{
 		if(y + speed > parent.height)
 		{
@@ -52,8 +41,8 @@ public class Bomb
 	private boolean defenderCollision()
 	{
 		boolean out = true;
-		int dX = game.defender.x;
-		int dY = game.defender.y;
+		int dX = Math.round(game.defender.x);
+		int dY = Math.round(game.defender.y);
 		int dWidth = Game.defenderI.width;
 		int dHeight = Game.defenderI.height;
 		if(x - 2 < dX - dWidth)

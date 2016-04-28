@@ -17,7 +17,7 @@ public class Game extends PApplet
 	// Input
 	public static boolean[] keys;
 	// Class Objects
-	Random random = new Random();
+	public static Random random = new Random();
 	// Resources
 	// Visual
 	public static PFont defaultFont, titleFont;
@@ -447,7 +447,7 @@ public class Game extends PApplet
 		stars = new ArrayList<Star>();
 		for(int i = 0; i < starCount; i++)
 		{
-			stars.add(new Star(this, minDX, maxDX));
+			stars.add(new Star(this, this, minDX, maxDX));
 		}
 	}
 	private void renderBackground()
@@ -504,7 +504,7 @@ public class Game extends PApplet
 		// This method initialises the variables needed for a new game. It's called when the game state is changed to 'GAME'.
 		startGameFrameCount = frameCount;
 		endGameFrameCount = -1;
-		defender = new Defender(this);
+		defender = new Defender(this, this);
 		aliens = new ArrayList<Alien>();
 		explosions = new ArrayList<Explosion>();
 		walls = new ArrayList<Wall>();
@@ -526,7 +526,7 @@ public class Game extends PApplet
 		// This method is called when the defender gets shot by an alien. It just destroys the game entities that would not be needed when the
 		// player looses a life and the current game needs to resume.
 		startGameFrameCount = frameCount;
-		defender = new Defender(this);
+		defender = new Defender(this, this);
 		bomb = null;
 		missile = null;
 		superAlien = null;
@@ -1176,7 +1176,7 @@ public class Game extends PApplet
 	private void spawnWall(int maxHealth, int x)
 	{
 		// This spawns a single wall
-		walls.add(new Wall(this, maxHealth, x));
+		walls.add(new Wall(this, this, maxHealth, x));
 	}
 	public void swapAlienDirection()
 	{

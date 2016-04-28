@@ -1,23 +1,18 @@
 package spaceInvaders;
 import java.util.*;
 import processing.core.*;
-public class Wall
+public class Wall extends Entity
 {
 	// TYPE:	Game Entity
-	// DESC:	Walls are there to defend the player from bombs dropped by the aliens. They can also be shot by the player. They're each split up
-	//			into 4 different sections, all that take differing amounts of damage.
-	PApplet parent;
-	int x, y;
+	// DESC:	Walls are there to defend the player from bombs dropped by the aliens
 	int maxHealth;
 	static int textureWidth = 60;
 	ArrayList<Boolean> destroyed;
 	ArrayList<Integer> health;
 	ArrayList<PImage> texture;
-	public Wall(PApplet parent, int maxHealth, int x)
+	public Wall(PApplet parent, Game game, int maxHealth, int x)
 	{
-		this.parent = parent;
-		this.x = x;
-		this.y = parent.height - 125;
+		super(parent, game, x, parent.height - 125);
 		this.maxHealth = maxHealth;
 		destroyed = new ArrayList<Boolean>();
 		destroyed.add(Boolean.FALSE);
@@ -39,6 +34,7 @@ public class Wall
 		texture.add(Game.wallDamCI);
 		texture.add(Game.wallDamDI);
 	}
+	@Override
 	public void update()
 	{
 		for(int i = 0; i < health.size(); i++)
@@ -68,7 +64,7 @@ public class Wall
 	}
 	public void attack(int x)
 	{
-		int dX = x - this.x;
+		int dX = x - Math.round(this.x);
 		if(dX < -16)
 		{
 			health.set(0, health.get(0) - 1);
@@ -86,4 +82,6 @@ public class Wall
 			health.set(2, health.get(2) - 1);
 		}
 	}
+	protected void move() {}
+	public void render() {}
 }

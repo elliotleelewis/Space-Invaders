@@ -1,28 +1,17 @@
 package spaceInvaders;
 import java.util.*;
 import processing.core.*;
-public class Missile
+public class Missile extends Entity
 {
 	// TYPE:	Game Entity
 	// DESC:	Can be fired by the user. If it hits a wall then the wall takes damage and the missile is destroyed. If it hits an alien then
 	//			the alien is killed and the missile is destroyed.
-	PApplet parent;
-	Game game;
-	int x, y;
 	static float speed = 10f;
-	public Missile(PApplet parent, Game game, int x, int y)
+	public Missile(PApplet parent, Game game, float x, float y)
 	{
-		this.parent = parent;
-		this.game = game;
-		this.x = x;
-		this.y = y;
+		super(parent, game, x, y);
 	}
-	public void update()
-	{
-		move();
-		render();
-	}
-	private void move()
+	protected void move()
 	{
 		if(y - speed <= 0)
 		{
@@ -57,7 +46,7 @@ public class Missile
 			Wall wall = walls.get(i);
 			if(wallCollision(wall, i))
 			{
-				game.damageWall(i, x);
+				game.damageWall(i, Math.round(x));
 				game.destroyMissile();
 				return;
 			}

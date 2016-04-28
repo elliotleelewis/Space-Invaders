@@ -1,27 +1,19 @@
 package spaceInvaders;
-import java.util.*;
 import processing.core.*;
-public class Star
+public class Star extends Entity
 {
 	// TYPE:	Game Element
 	// DESC:	Floating randomly moving stars that are shown in the background of the game.
-	PApplet parent;
-	Random random = new Random();
-	float x, y, minDY, maxDY, dY;
+	float minDY, maxDY, dY;
 	boolean big;
-	public Star(PApplet parent, float minDY, float maxDY)
+	public Star(PApplet parent, Game game, float minDY, float maxDY)
 	{
-		this.parent = parent;
+		super(parent, game, Game.random.nextInt(parent.width), Game.random.nextInt(parent.height));
 		this.minDY = minDY;
 		this.maxDY = maxDY;
 		generate(true);
 	}
-	public void update()
-	{
-		move();
-		render();
-	}
-	private void move()
+	protected void move()
 	{
 		if(y + dY > parent.height)
 		{
@@ -29,7 +21,7 @@ public class Star
 		}
 		y += dY;
 	}
-	private void render()
+	public void render()
 	{
 		if(big)
 		{
@@ -44,17 +36,17 @@ public class Star
 	private void generate(boolean firstTime)
 	{
 		float deltaDX = maxDY - minDY;
-		dY = ((float) random.nextInt((int) (deltaDX * 100)) / 100f) + minDY;
-		x = random.nextInt(parent.width);
+		dY = ((float) Game.random.nextInt((int) (deltaDX * 100)) / 100f) + minDY;
+		x = Game.random.nextInt(parent.width);
 		if(firstTime)
 		{
-			y = random.nextInt(parent.height);
+			y = Game.random.nextInt(parent.height);
 		}
 		else
 		{
 			y = 0;
 		}
-		if(random.nextInt(10) == 1)
+		if(Game.random.nextInt(10) == 1)
 		{
 			big = true;
 		}
